@@ -6,6 +6,7 @@ import SubmitComplaint from './pages/SubmitComplaint.jsx'
 import TrackComplaint from './pages/TrackComplaint.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route path="submit" element={<SubmitComplaint />} />
           <Route path="track" element={<TrackComplaint />} />
           <Route path="admin/login" element={<AdminLogin />} />
-          <Route path="admin/dashboard" element={<Dashboard />} />
+          <Route path="admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

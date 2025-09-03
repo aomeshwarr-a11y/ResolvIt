@@ -1,6 +1,8 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
 
 export default function Layout() {
+  const { user, logout } = useAuth()
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b bg-white">
@@ -10,7 +12,15 @@ export default function Layout() {
             <NavLink to="/" end className={({isActive})=>`hover:text-blue-600 ${isActive?'text-blue-600 font-medium':''}`}>Home</NavLink>
             <NavLink to="/submit" className={({isActive})=>`hover:text-blue-600 ${isActive?'text-blue-600 font-medium':''}`}>Submit Complaint</NavLink>
             <NavLink to="/track" className={({isActive})=>`hover:text-blue-600 ${isActive?'text-blue-600 font-medium':''}`}>Track Complaint</NavLink>
-            <NavLink to="/admin/login" className={({isActive})=>`hover:text-blue-600 ${isActive?'text-blue-600 font-medium':''}`}>Admin Login</NavLink>
+            {!user && (
+              <NavLink to="/admin/login" className={({isActive})=>`hover:text-blue-600 ${isActive?'text-blue-600 font-medium':''}`}>Admin Login</NavLink>
+            )}
+            {user && (
+              <>
+                <NavLink to="/admin/dashboard" className={({isActive})=>`hover:text-blue-600 ${isActive?'text-blue-600 font-medium':''}`}>Dashboard</NavLink>
+                <button onClick={logout} className="text-red-600 hover:text-red-700">Logout</button>
+              </>
+            )}
           </nav>
         </div>
       </header>
